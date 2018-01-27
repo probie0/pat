@@ -12,7 +12,6 @@ public:
 	string name;
 	string birthday;
 public:
-	People(string n, string bd) : name(n), birthday(bd) {}
 	bool operator<(const People &p)const
 	{
 		return birthday < p.birthday;
@@ -29,13 +28,15 @@ int main()
 		cin >> name >> birthday;
 		if (birthday <= "2014/09/06" && birthday >= "1814/09/06")
 		{
-			People p(name, birthday);
+			People p; p.name = name; p.birthday = birthday;
 			vec_p.push_back(p);
 		}
 	}
-	sort(vec_p.begin(), vec_p.end());
 	if (!vec_p.empty())
-		cout << vec_p.size() << " " << vec_p[0].name << " " << vec_p.back().name;
+	{
+		auto pair = minmax_element(vec_p.begin(), vec_p.end());
+		cout << vec_p.size() << " " << pair.first->name << " " << pair.second->name;
+	}
 	else
 		cout << 0 << "";
 	system("pause");
